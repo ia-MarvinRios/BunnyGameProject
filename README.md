@@ -43,4 +43,4 @@ escapar..
 
 1. Clona el repositorio  
    ```bash
-   git clone https://github.com/ia-MarvinRios/PixelGameProject.git
+   git clone https://github.com/ia-MarvinRios/BunnyGameProject.git
