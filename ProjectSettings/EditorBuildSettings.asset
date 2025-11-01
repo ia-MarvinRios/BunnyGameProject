@@ -9,9 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 7912e06c83a2cfa4fb19d6def594f15b
   - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: 790c08babbe63c74191acbd152b4474c
+  - enabled: 0
     path: Assets/Scenes/Overworld.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9227e98e4b6e046c5b175924d7b5d070, type: 2}
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 757fd0c01e9c99b46ae1ff072e48096c, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 1ba54db3b0f30f946959aae03e016282, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 853ffcb44cf6a9d40aad86518ddcb333, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: ea02cf123c7748a409bf955fb31eb4fb, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
