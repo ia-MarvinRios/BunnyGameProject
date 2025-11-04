@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Collections;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
@@ -25,7 +24,7 @@ public class MusicManager : MonoBehaviour
     }
     public void PlayMusic(string trackName, float fadeduration = 005f)
     {
-        StartCoroutine(AnimateMusicCrossfade (musicLibray.GetClipFromName (trackName), fadeduration));
+        StartCoroutine(AnimateMusicCrossfade(musicLibray.GetClipFromName(trackName), fadeduration));
     }
 
     IEnumerator AnimateMusicCrossfade ( AudioClip nexttrack, float fadeDuration = 0.5f)

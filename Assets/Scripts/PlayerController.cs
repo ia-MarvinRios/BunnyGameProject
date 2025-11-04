@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviour
     float _holdStartTime = 0f;
     float _holdDuration = 0f;
 
-    // TEMPORARY CONST FOR JUMP DIRECTION
-    Vector3 JUMPDIR = new Vector3(1, 1, 0);
+    // JUMP DIRECTION
+    bool _isJumpingLeft = false;
+    Vector3 JUMPDIR_RIGHT = new Vector3(1, 1, 0);
+    Vector3 JUMPDIR_LEFT = new Vector3(-1, 1, 0);
 
 
     // --- INSPECTOR VARIABLES ---
@@ -38,10 +40,21 @@ public class PlayerController : MonoBehaviour
         CalcTraj();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("RestartZone"))
+        {
+            GameManager.Instance.RespawnPlayer(gameObject);
+        }
+    }
+
     public void Jump(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
+            Vector2 pos = Touchscreen.current.primaryTouch.position.ReadValue();
+            _isJumpingLeft = pos.x < Screen.width * 0.5f;
+
             isHoldingJump = true;
             _holdStartTime = Time.time;
 
@@ -59,32 +72,13 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DisableLineWithWaitTime(_simulationTime));
         }
     }
-    public void StartJumpHold()
-    {
-        isHoldingJump = true;
-        _holdStartTime = Time.time;
-
-        StopCoroutine("DisableLineWithWaitTime");
-    }
-
-    public void EndJumpHold()
-    {
-        isHoldingJump = false;
-        _holdDuration = Time.time - _holdStartTime;
-
-        // Jump
-        _rb.AddForce(_impulseForce, ForceMode.Impulse);
-
-        _holdDuration = 0f;
-        StartCoroutine(DisableLineWithWaitTime(_simulationTime));
-    }
 
     void CalcTraj()
     {
         if (isHoldingJump)
         {
             _holdDuration = isHoldingJump ? Time.time - _holdStartTime : _holdDuration;
-            _impulseForce = JUMPDIR * _jumpMultiplier * _holdDuration;
+            _impulseForce = _isJumpingLeft ? JUMPDIR_LEFT * _jumpMultiplier * _holdDuration : JUMPDIR_RIGHT * _jumpMultiplier * _holdDuration;
 
             _lineRenderer.positionCount = 0;
             _lineRenderer.positionCount = _resolution;
