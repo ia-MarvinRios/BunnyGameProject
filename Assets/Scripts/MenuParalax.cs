@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MenuParalax : MonoBehaviour
 {
@@ -21,11 +22,11 @@ public class MenuParalax : MonoBehaviour
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         // ??? En PC: usa el mouse
-        offset = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        offset = Camera.main.ScreenToViewportPoint(Mouse.current.position.ReadValue());
         offset -= new Vector2(0.5f, 0.5f);
 #else
         // ?? En móvil: usa el acelerómetro
-        Vector3 tilt = Input.acceleration;
+        Vector3 tilt = Accelerometer.current.acceleration.ReadValue();
         offset = new Vector2(tilt.x, tilt.y);
 #endif
 

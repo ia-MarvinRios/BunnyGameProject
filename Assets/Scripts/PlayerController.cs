@@ -59,6 +59,25 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DisableLineWithWaitTime(_simulationTime));
         }
     }
+    public void StartJumpHold()
+    {
+        isHoldingJump = true;
+        _holdStartTime = Time.time;
+
+        StopCoroutine("DisableLineWithWaitTime");
+    }
+
+    public void EndJumpHold()
+    {
+        isHoldingJump = false;
+        _holdDuration = Time.time - _holdStartTime;
+
+        // Jump
+        _rb.AddForce(_impulseForce, ForceMode.Impulse);
+
+        _holdDuration = 0f;
+        StartCoroutine(DisableLineWithWaitTime(_simulationTime));
+    }
 
     void CalcTraj()
     {
