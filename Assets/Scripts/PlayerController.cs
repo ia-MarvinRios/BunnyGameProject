@@ -49,13 +49,7 @@ public class PlayerController : MonoBehaviour
         CheckGrounded();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("RestartZone"))
-        {
-            GameManager.Instance.RespawnPlayer(gameObject);
-        }
-    }
+    
 
     public void Jump(InputAction.CallbackContext ctx)
     {

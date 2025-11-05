@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level.unity
     guid: 790c08babbe63c74191acbd152b4474c
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 59360d9d59b1cba4e9b7847e5d0381ef
   - enabled: 0
     path: Assets/Scenes/Overworld.unity
     guid: 99c9720ab356a0642a771bea13969a05
