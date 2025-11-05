@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4807928687054002484}
   - component: {fileID: 2054000303806522387}
   - component: {fileID: 5175172829919724466}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5188852093345533691}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BaseWorldBlock 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 4914499244329308589}
   - component: {fileID: 3429959091633682039}
   - component: {fileID: 6405177295663632792}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

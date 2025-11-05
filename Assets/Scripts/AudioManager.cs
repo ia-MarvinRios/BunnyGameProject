@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public struct GameAudio
@@ -20,8 +21,11 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [SerializeField] bool _playMusicOnLoop = true;
+    [SerializeField] AudioMixer mixer;
     [SerializeField] AudioSource _musicSource;
     [SerializeField] GameAudio[] _soundsLibrary;
+
+    public float MusicVolume { get { return GetChannelVolume("Music"); } set { SetChannelVolume("Music", value); } }
 
     private void Awake()
     {
@@ -60,5 +64,18 @@ public class AudioManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SetChannelVolume(string mixerChannel, float linearVolume) // valor 0.0 a 1.0
+    {
+        float volumeInDb = Mathf.Log10(Mathf.Clamp(linearVolume, 0.0001f, 1f)) * 20f;
+        mixer.SetFloat(mixerChannel, volumeInDb);
+    }
+    public float GetChannelVolume(string mixerChannel)
+    {
+        float volumeInDb;
+        mixer.GetFloat(mixerChannel, out volumeInDb);
+        float linearVolume = Mathf.Pow(10f, volumeInDb / 20f);
+        return linearVolume;
     }
 }

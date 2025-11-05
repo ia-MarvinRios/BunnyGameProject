@@ -1,21 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private string sceneToLoad = "Overworld";
+    [SerializeField] Slider _musicSlider;
 
-    public void Play()
+    private void Start()
     {
-        if (!string.IsNullOrEmpty(sceneToLoad))
-            SceneManager.LoadScene(sceneToLoad);
-        else
-            Debug.LogError("?? No se ha asignado el nombre de la escena en el Inspector.");
+        SetUpMusicSlider();
     }
 
-    public void Quit()
+    void SetUpMusicSlider()
     {
-        Application.Quit();
-        Debug.Log("?? La aplicación se cerraría (solo funciona en compilación).");
+        _musicSlider.value = AudioManager.Instance.MusicVolume;
+        _musicSlider.onValueChanged.AddListener((float a) =>
+        {
+            AudioManager.Instance.MusicVolume = _musicSlider.value;
+        });
     }
 }

@@ -24,10 +24,18 @@ public class PlayerController : MonoBehaviour
     [Header("Controller Settings")]
     [Space(5)]
     [SerializeField] float _jumpMultiplier = 1f;
+    [SerializeField] float _minHoldTime = 0;
+    [SerializeField] float _maxHoldTime = 2f;
     [SerializeField] LayerMask _groundLayer;
     [SerializeField] LineRenderer _lineRenderer;
     [SerializeField, Range(2, 30)] int _resolution = 30;
     [SerializeField, Range(1, 5)] float _simulationTime = 5f;
+    [Space(10)]
+    [SerializeField] float _raycastDistance = 0.05f;
+    [SerializeField] Vector3 _raycastOffset = new Vector3(0, 0, 0);
+    [Header("Animations")]
+    [SerializeField] Animator _animator;
+    [SerializeField] GameObject _modelObject;
 
     private void Awake()
     {
@@ -38,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         CalcTraj();
+        CheckGrounded();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -54,11 +63,18 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 pos = Touchscreen.current.primaryTouch.position.ReadValue();
             _isJumpingLeft = pos.x < Screen.width * 0.5f;
+            _modelObject.transform.rotation = _isJumpingLeft ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
 
             isHoldingJump = true;
             _holdStartTime = Time.time;
 
             StopCoroutine("DisableLineWithWaitTime");
+
+            // Animator
+            if (_animator != null)
+            {
+                _animator.SetTrigger("JumpCharge");
+            }
         }
         if (ctx.canceled)
         {
@@ -70,6 +86,12 @@ public class PlayerController : MonoBehaviour
 
             _holdDuration = 0f;
             StartCoroutine(DisableLineWithWaitTime(_simulationTime));
+
+            // Animator
+            if (_animator != null)
+            {
+                _animator.SetTrigger("Jump");
+            }
         }
     }
 
@@ -77,8 +99,9 @@ public class PlayerController : MonoBehaviour
     {
         if (isHoldingJump)
         {
-            _holdDuration = isHoldingJump ? Time.time - _holdStartTime : _holdDuration;
+            _holdDuration = Mathf.Clamp(isHoldingJump ? Time.time - _holdStartTime : _holdDuration, _minHoldTime, _maxHoldTime);
             _impulseForce = _isJumpingLeft ? JUMPDIR_LEFT * _jumpMultiplier * _holdDuration : JUMPDIR_RIGHT * _jumpMultiplier * _holdDuration;
+
 
             _lineRenderer.positionCount = 0;
             _lineRenderer.positionCount = _resolution;
@@ -109,6 +132,28 @@ public class PlayerController : MonoBehaviour
                     _lineRenderer.positionCount = i + 1;
                     break;
                 }
+            }
+        }
+    }
+
+    void CheckGrounded()
+    {
+        if (Physics.Raycast(transform.position + _raycastOffset, Vector3.down, _raycastDistance, _groundLayer))
+        {
+            Debug.Log("Grounded");
+
+            // Animator
+            if (_animator != null)
+            {
+                _animator.SetBool("IsGrounded", true);
+            }
+        }
+        else
+        {
+            // Animator
+            if (_animator != null)
+            {
+                _animator.SetBool("IsGrounded", false);
             }
         }
     }

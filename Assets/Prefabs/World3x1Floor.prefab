@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2570718662127355272}
   - component: {fileID: 1530784633778682068}
   - component: {fileID: 6872414223325973493}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4462406525314265879}
   - component: {fileID: 1494190498894115356}
   - component: {fileID: 5322457887134407768}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grass01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 2068061377931198662}
   - component: {fileID: 8365944589228829216}
   - component: {fileID: 9148308780031631413}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 5260420563718201894}
   - component: {fileID: 3112693152799906047}
   - component: {fileID: 866725221117586955}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 2852141110082220556}
   - component: {fileID: 1799209425497104735}
   - component: {fileID: 1938263127306101769}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grass02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48303918372299103}
   - component: {fileID: 4730922032430602301}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: World3x1Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 5446799045652275259}
   - component: {fileID: 5426589967190190256}
   - component: {fileID: 1489890479759853161}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

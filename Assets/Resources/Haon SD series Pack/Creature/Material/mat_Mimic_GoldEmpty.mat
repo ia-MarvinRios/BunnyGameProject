@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8702311442427797446
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: mat_Mimic_GoldEmpty
+  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  m_Parent: {fileID: 2100000, guid: aeec99baee2fe8148acab95afbc77e7e, type: 2}
+  m_ModifiedSerializedProperties: 16
+  m_ValidKeywords:
+  - _EMISSION
+  m_InvalidKeywords:
+  - _EMISSIVE_ANIMATION
+  - _IS_ANGELRING_OFF
+  - _IS_CLIPPING_TRANSMODE
+  - _IS_OUTLINE_CLIPPING_YES
+  - _OUTLINE_NML
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    IgnoreProjection: true
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _1st2nd_Shades_Feather: 0.127
+    - _1st_ShadeColor_Feather: 0.154
+    - _1st_ShadeColor_Step: 0.601
+    - _2nd_ShadeColor_Feather: 0.127
+    - _2nd_ShadeColor_Step: 0.557
+    - _BaseColor_Step: 0.601
+    - _BaseShade_Feather: 0.154
+    - _Base_Speed: 2
+    - _ClippingMode: 2
+    - _CullMode: 0
+    - _RimLight: 0
+    - _SPRDefaultUnlitColorMask: 0
+    - _SRPDefaultUnlitColMode: 2
+    - _Scroll_EmissiveU: 0.167
+    - _Scroll_EmissiveV: 0.106
+    - _ShadeColor_Step: 0.557
+    - _TransparentEnabled: 1
+    - _Tweak_transparency: -1
+    - _ZOverDrawMode: 1
+    - _ZWriteMode: 0
+    m_Colors:
+    - _1st_ShadeColor: {r: 0.8113208, g: 0.6169256, b: 0.3099858, a: 1}
+    - _2nd_ShadeColor: {r: 0.4433962, g: 0.2917631, b: 0.18195978, a: 1}
+    - _BaseColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
+    - _Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
+    - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
