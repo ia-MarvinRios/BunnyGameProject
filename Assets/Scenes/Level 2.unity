@@ -23929,6 +23929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkpoint: {fileID: 293198569}
+  _carrotCountLabel: {fileID: 2055680846}
 --- !u!4 &2022739795
 Transform:
   m_ObjectHideFlags: 0
@@ -24809,6 +24810,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2055680851}
   m_SourcePrefab: {fileID: 100100000, guid: a95917d94e282514faaca6e47d26baa4, type: 3}
+--- !u!114 &2055680846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 946466177209036329, guid: a95917d94e282514faaca6e47d26baa4, type: 3}
+  m_PrefabInstance: {fileID: 2055680845}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2055680848 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6021391774269014557, guid: a95917d94e282514faaca6e47d26baa4, type: 3}

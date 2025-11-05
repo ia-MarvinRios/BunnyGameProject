@@ -101,5 +101,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08292f92677950740836a3bc2690cb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsGolden: 1
+  isGolden: 1
   SceneName: Level 2

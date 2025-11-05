@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,12 +7,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] Transform _checkpoint;
-    bool isGamePaused = false;
+    [SerializeField] TMP_Text _carrotCountLabel;
+    int _collectedCarrots;
+    int _carrotCount = 0;
+    bool _isGamePaused = false;
 
     public delegate void OnObjectToggleDelegate(GameObject obj);
     public event OnObjectToggleDelegate OnObjectToggle;
 
-    public bool IsGamePaused { get { return isGamePaused; } }
+    public bool IsGamePaused { get { return _isGamePaused; } }
 
     private void Awake()
     {
@@ -20,13 +24,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         PlayMusic(GetCurrentSceneName());
+        CountCarrots();
     }
 
     public void TogglePauseGame()
     {
-        isGamePaused = !isGamePaused;
+        _isGamePaused = !_isGamePaused;
 
-        if (isGamePaused)
+        if (_isGamePaused)
         {
             Time.timeScale = 0f;
         }
@@ -75,6 +80,34 @@ public class GameManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    // --- Game Managment Methods ---
+    void CountCarrots()
+    {
+        foreach (var carrot in FindObjectsByType<Moneda>(FindObjectsSortMode.None))
+        {
+            if (!carrot.IsGolden)
+                _carrotCount++;
+        }
+
+        UpdateCarrotCount(0);
+    }
+    /// <summary>
+    /// Updates the carrot count UI by the given amount.
+    /// </summary>
+    /// <param name="plusAmmount"></param>
+    public void UpdateCarrotCount(int plusAmmount)
+    {
+        if (_carrotCountLabel != null)
+        {
+            _collectedCarrots += plusAmmount;
+            _carrotCountLabel.text = $"{_collectedCarrots.ToString()}/{_carrotCount.ToString()}";
+        }
+        else
+        {
+            Debug.LogWarning("Carrot Count Label is not assigned in the GameManager.");
         }
     }
 }
