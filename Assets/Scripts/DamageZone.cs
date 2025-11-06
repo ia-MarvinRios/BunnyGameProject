@@ -1,16 +1,17 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 
 [RequireComponent (typeof(Collider))]
-public class GameOverZone : MonoBehaviour
+public class DamageZone : MonoBehaviour
 {
-    [SerializeField] GameObject GameOverScream;
+    [SerializeField] UnityEvent _OnGameOverZone;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.ToggleGameObject(GameOverScream);
+            _OnGameOverZone?.Invoke();
         }
     }
 

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     bool isHoldingJump = false;
     float _holdStartTime = 0f;
     float _holdDuration = 0f;
+    bool _canJump = true;
 
     // JUMP DIRECTION
     bool _isJumpingLeft = false;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _jumpMultiplier = 1f;
     [SerializeField] float _minHoldTime = 0;
     [SerializeField] float _maxHoldTime = 2f;
+    [SerializeField] int _currentLives = 0;
     [SerializeField] LayerMask _groundLayer;
     [SerializeField] LineRenderer _lineRenderer;
     [SerializeField, Range(2, 30)] int _resolution = 30;
@@ -37,10 +39,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator _animator;
     [SerializeField] GameObject _modelObject;
 
+    // --- CSharp EVENTS ---
+    public delegate void OnHealthZeroDelegate();
+    public delegate void OnTakeDamageDelegate(int currentLives);
+    public static event OnHealthZeroDelegate OnHealthZero;
+    public static event OnTakeDamageDelegate OnTakeDamage;
+
     private void Awake()
     {
         _input = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        GetLives();
     }
 
     private void FixedUpdate()
@@ -49,42 +62,45 @@ public class PlayerController : MonoBehaviour
         CheckGrounded();
     }
 
-    
+
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (_canJump)
         {
-            Vector2 pos = Touchscreen.current.primaryTouch.position.ReadValue();
-            _isJumpingLeft = pos.x < Screen.width * 0.5f;
-            _modelObject.transform.rotation = _isJumpingLeft ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
-
-            isHoldingJump = true;
-            _holdStartTime = Time.time;
-
-            StopCoroutine("DisableLineWithWaitTime");
-
-            // Animator
-            if (_animator != null)
+            if (ctx.started)
             {
-                _animator.SetTrigger("JumpCharge");
+                Vector2 pos = Touchscreen.current.primaryTouch.position.ReadValue();
+                _isJumpingLeft = pos.x < Screen.width * 0.5f;
+                _modelObject.transform.rotation = _isJumpingLeft ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
+
+                isHoldingJump = true;
+                _holdStartTime = Time.time;
+
+                StopCoroutine("DisableLineWithWaitTime");
+
+                // Animator
+                if (_animator != null)
+                {
+                    _animator.SetTrigger("JumpCharge");
+                }
             }
-        }
-        if (ctx.canceled)
-        {
-            isHoldingJump = false;
-            _holdDuration = Time.time - _holdStartTime;
-
-            // Jump
-            _rb.AddForce(_impulseForce, ForceMode.Impulse);
-
-            _holdDuration = 0f;
-            StartCoroutine(DisableLineWithWaitTime(_simulationTime));
-
-            // Animator
-            if (_animator != null)
+            if (ctx.canceled)
             {
-                _animator.SetTrigger("Jump");
+                isHoldingJump = false;
+                _holdDuration = Time.time - _holdStartTime;
+
+                // Jump
+                _rb.AddForce(_impulseForce, ForceMode.Impulse);
+
+                _holdDuration = 0f;
+                StartCoroutine(DisableLineWithWaitTime(_simulationTime));
+
+                // Animator
+                if (_animator != null)
+                {
+                    _animator.SetTrigger("Jump");
+                }
             }
         }
     }
@@ -152,9 +168,40 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void GetLives()
+    {
+        _currentLives = GameManager.Instance.MaxLives;
+    }
+    public void UpdateLives()
+    {
+        _currentLives--;
+        OnTakeDamage?.Invoke(_currentLives);
+
+        // Check for death
+        if (_currentLives <= 0)
+        {
+            _currentLives = 0;
+            _canJump = false;
+            OnTakeDamage?.Invoke(_currentLives);
+            StartCoroutine(DoDieAnimation());
+        }
+    }
+
+    // Coroutines
     IEnumerator DisableLineWithWaitTime(float t)
     {
         yield return new WaitForSeconds(t);
         _lineRenderer.positionCount = 0;
+    }
+    IEnumerator DoDieAnimation()
+    {
+        // Animator
+        if (_animator != null)
+        {
+            _animator.SetBool("Die", true);
+        }
+        // Wait for animation to finish
+        yield return new WaitForSeconds(2f);
+        OnHealthZero?.Invoke();
     }
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Transform _checkpoint;
     [SerializeField] TMP_Text _carrotCountLabel;
+    [SerializeField] GameObject _livesContainerUI;
+    [SerializeField] GameObject _lifeIconPrefab;
+    [SerializeField] int _maxLives = 3;
+    [Header("Game Over Events")]
+    [SerializeField] UnityEvent _onGameOver;
     int _collectedCarrots;
     int _carrotCount = 0;
     bool _isGamePaused = false;
@@ -16,15 +22,21 @@ public class GameManager : MonoBehaviour
     public event OnObjectToggleDelegate OnObjectToggle;
 
     public bool IsGamePaused { get { return _isGamePaused; } }
+    public int MaxLives { get { return _maxLives; } }
 
     private void Awake()
     {
         Instance = this;
+
+        // Event Subscriptions
+        PlayerController.OnTakeDamage += UpdateLivesUI;
+        PlayerController.OnHealthZero += HandleGameOver;
     }
     private void Start()
     {
         PlayMusic(GetCurrentSceneName());
         CountCarrots();
+        SetUpLives();
     }
 
     public void TogglePauseGame()
@@ -44,6 +56,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
+    public void ReloadScene()
+    {
+        GoToScene(GetCurrentSceneName());
+    }
     public void ToggleGameObject(GameObject obj)
     {
         obj.SetActive(!obj.activeSelf);
@@ -62,7 +78,7 @@ public class GameManager : MonoBehaviour
     public void RespawnPlayer(GameObject player, Transform checkpoint){
         player.transform.position = checkpoint.position;
     }
-    string GetCurrentSceneName() {
+    public string GetCurrentSceneName() {
         return SceneManager.GetActiveScene().name;
     }
     void PlayMusic(string sceneName)
@@ -109,5 +125,30 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Carrot Count Label is not assigned in the GameManager.");
         }
+    }
+    void SetUpLives()
+    {
+        if (_livesContainerUI != null && _lifeIconPrefab != null)
+        {
+            for (int i = 0; i < _maxLives; i++)
+            {
+                Instantiate(_lifeIconPrefab, _livesContainerUI.transform);
+            }
+        }
+    }
+    public void UpdateLivesUI(int currentLives)
+    {
+        if (_livesContainerUI != null)
+        {
+            for (int i = 0; i < _livesContainerUI.transform.childCount; i++)
+            {
+                GameObject lifeIcon = _livesContainerUI.transform.GetChild(i).gameObject;
+                lifeIcon.SetActive(i < currentLives);
+            }
+        }
+    }
+    void HandleGameOver()
+    {
+        _onGameOver?.Invoke();
     }
 }
