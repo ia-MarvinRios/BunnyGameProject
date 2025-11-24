@@ -94,6 +94,9 @@ public class GameManager : MonoBehaviour
             case "Level 2":
                 AudioManager.Instance.PlaySoundByName("InGame02");
                 break;
+            case "Level 3":
+                AudioManager.Instance.PlaySoundByName("InGame01");
+                break;
             default:
                 break;
         }
