@@ -172,11 +172,8 @@ public class PlayerController : MonoBehaviour
     {
         _currentLives = GameManager.Instance.MaxLives;
     }
-    public void UpdateLives()
+    void CheckDeath()
     {
-        _currentLives--;
-        OnTakeDamage?.Invoke(_currentLives);
-
         // Check for death
         if (_currentLives <= 0)
         {
@@ -185,6 +182,26 @@ public class PlayerController : MonoBehaviour
             OnTakeDamage?.Invoke(_currentLives);
             StartCoroutine(DoDieAnimation());
         }
+    }
+    /// <summary>
+    /// Actualiza las vidas del jugador al recibir daño. Disminuye el contador de vidas (-1) y verifica si el jugador ha muerto.
+    /// </summary>
+    public void UpdateLives()
+    {
+        _currentLives--;
+        OnTakeDamage?.Invoke(_currentLives);
+
+        CheckDeath();
+    }
+    /// <summary>
+    /// Actualiza las vidas del jugador a un valor específico. Verifica si el jugador ha muerto.
+    /// </summary>
+    /// <param name="lives"></param>
+    public void SetUpdateLives(int lives)
+    {
+        _currentLives = lives;
+        OnTakeDamage?.Invoke(_currentLives);
+        CheckDeath();
     }
 
     // Coroutines
