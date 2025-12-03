@@ -97,6 +97,9 @@ public class GameManager : MonoBehaviour
             case "Level 3":
                 AudioManager.Instance.PlaySoundByName("InGame01");
                 break;
+            case "Final":
+                AudioManager.Instance.PlaySoundByName("JumpToTheStars");
+                break;
             default:
                 break;
         }
