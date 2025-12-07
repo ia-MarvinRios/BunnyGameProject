@@ -5,11 +5,9 @@
 
 ## 🎮 Descripción
 
-**Bunny Hop** es un juego desarrollado por estudiantes de la UFG en **Unity 6000.0.38f1**. Juego 2D bullet hell/dungeon crawler en pixel art donde el
-jugador controla a un hombre atrapado en una cueva antigua y
-peligrosa. Para sobrevivir, deberá esquivar proyectiles, derrotar
-criaturas y encontrar nuevas armas hasta enfrentar al jefe final y
-escapar..
+**Bunny Hop** es un juego desarrollado por estudiantes de la UFG en **Unity 6000.0.38f1**. Juego 2.5D plataformero donde el
+jugador controla a un conejo que debe cursar obstáculos hasta llegar a la meta al final de cada nivel, la cual es representada como una zanahoria dorada. Para lograr su objetivo, deberá esquivar espinas,
+esquivar enemigos y encontrar todas las zanahorias de cada nivel.
 
 ---
 
@@ -17,7 +15,7 @@ escapar..
 
 | Gameplay | Menú Principal |
 |---------|----------------|
-| ![gameplay](./Screenshots/gameplay.png) | ![menu](./Screenshots/menu.png) |
+| ![gameplay](./Images/BunnyHopLevel1.png) | ![menu](./Images/BunnyHopMenu.png) |
 
 ---
 
@@ -25,7 +23,7 @@ escapar..
 
 - ✅ Mecánica principal: Calculo de salto.  
 - 🧠 Inteligencia artificial para enemigos.
-- 📈 Progresión rápida.
+- 📈 Juego instantáneo de progresión rápida.
 - ⚔️ Oxes.
 
 ---
